@@ -18,13 +18,13 @@ fn array_empty() {
 // Attempting to access an array at an index that is
 // out of its bounds will cause an error. Let's cause
 // that error in this example.
-// #[test]
-// #[should_panic]
-// #[allow(const_err)]
-// fn out_of_index() {
-//     let arr: [&'static str; 5] = ["rust", "is", "mostly", "for", "nerds"];
-//     arr[6];
-// }
+#[test]
+#[should_panic]
+#[allow(const_err)]
+fn out_of_index() {
+    let arr: [&'static str; 5] = ["rust", "is", "mostly", "for", "nerds"];
+    arr[arr.len()];
+}
 
 // Elements can be replaced in an array at a certain index.
 // hint: Without the 'mut' keyword, you won't be able to change data.
@@ -108,7 +108,10 @@ fn for_loops_two() {
     let words: [&'static str; 3] = ["I", "love", "Rust"];
     let mut sentence: String = String::new();
     for word in words.iter() {
-        sentence.push_str(&word)
+        if sentence.len() != 0 {
+            sentence.push_str(" ");
+        }
+        sentence.push_str(word);
     }
     println!("{:?}", sentence);
     assert!(sentence == "I love Rust".to_string());
